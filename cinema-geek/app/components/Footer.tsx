@@ -1,10 +1,11 @@
 'use client'
 
 import Link from 'next/link'
-import AddIcon from '@mui/icons-material/Add'
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance'
+import WhatshotIcon from '@mui/icons-material/Whatshot';
+import SearchIcon from '@mui/icons-material/Search';
 import SettingsIcon from '@mui/icons-material/Settings'
-import { EditCalendar, PieChart } from '@mui/icons-material'
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
 
@@ -12,10 +13,10 @@ export const Footer: React.FC = () => {
     const [selected, setSelected] = useState(0)
 
     const links = [
-        { href: '/', icon: EditCalendar, label: 'Transaction' },
-        { href: '/accounts', icon: AccountBalanceIcon, label: 'Account' },
-        { href: '/transaction', icon: AddIcon, label: 'Add' },
-        { href: '/categories', icon: PieChart, label: 'Analyze' },
+        { href: '/', icon: WhatshotIcon, label: 'Trends' },
+        { href: '/', icon: SearchIcon, label: 'Search' },
+        { href: '/', icon: LightModeIcon, label: 'Light Mode' },
+        { href: '/', icon: DarkModeIcon, label: 'Dark Mode' },
         { href: '/settings', icon: SettingsIcon, label: 'Settings' },
     ]
 
