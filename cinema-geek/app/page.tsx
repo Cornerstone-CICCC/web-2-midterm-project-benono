@@ -11,7 +11,7 @@ export default async function Home() {
 
   return (
     <main>
-      <h1 className="text-2xl font-bold">Trending</h1>
+      <h1 className="py-2 text-center text-2xl font-bold">Trend</h1>
       <TrendingTabs
         initialMovies={trendingMovies}
         initialTVShows={trendingTV}

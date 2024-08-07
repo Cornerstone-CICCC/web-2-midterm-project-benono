@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useCallback, useEffect } from 'react'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import MovieGrid from './movie-grid'
 import { Movie, TV, Person } from '../lib/tmdb'
 import { fetchMoreTrending } from '../lib/actions'
@@ -115,33 +116,14 @@ export default function TrendingTabs({
 
   return (
     <div>
-      <div className="flex mb-4">
-        <button
-          className={`mr-2 px-4 py-2 ${
-            activeTab === 'movies' ? 'bg-primary text-white' : 'bg-gray-200'
-          }`}
-          onClick={() => setActiveTab('movies')}
-        >
-          Movies
-        </button>
-        <button
-          className={`mr-2 px-4 py-2 ${
-            activeTab === 'tvShows' ? 'bg-primary text-white' : 'bg-gray-200'
-          }`}
-          onClick={() => setActiveTab('tvShows')}
-        >
-          TV Shows
-        </button>
-        <button
-          className={`px-4 py-2 ${
-            activeTab === 'people' ? 'bg-primary text-white' : 'bg-gray-200'
-          }`}
-          onClick={() => setActiveTab('people')}
-        >
-          People
-        </button>
-      </div>
-      {renderContent()}
+      <Tabs defaultValue="movies">
+        <TabsList>
+          <TabsTrigger value="movies">Movies</TabsTrigger>
+          <TabsTrigger value="tvShows">TV Shows</TabsTrigger>
+          <TabsTrigger value="people">People</TabsTrigger>
+        </TabsList>
+        <TabsContent value="movies">{renderContent()}</TabsContent>
+      </Tabs>
       {loading && <p>Loading more...</p>}
     </div>
   )
