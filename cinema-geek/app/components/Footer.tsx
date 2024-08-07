@@ -18,7 +18,7 @@ export const Footer: React.FC = () => {
   ]
 
   return (
-    <footer className="fixed bottom-0 w-full bg-primary-foreground py-1">
+    <footer className="fixed bottom-0 w-full bg-[#1C1C1C] text-[#E1E1E1] pt-2 pb-4">
       <div className="grid grid-cols-4">
         {links.map((link, index) => (
           <Link
@@ -29,8 +29,8 @@ export const Footer: React.FC = () => {
           >
             <link.icon
               className={cn(
-                'text-stone-500',
-                selected === index && 'text-red-500'
+                'text-[#E1E1E1]',
+                selected === index && 'text-primary'
               )}
             />
             <span className="text-[10px]">{link.label}</span>
