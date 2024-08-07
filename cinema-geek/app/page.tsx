@@ -1,21 +1,20 @@
-import { fetchTrendingMovies, searchPerson, fetchPersonMovies, searchMovie, searchSimilarMovies } from '@/app/lib/tmdb';
-import type { Movie, Person } from '@/app/lib/tmdb';  // 型をインポート
-
-
+import { fetchTrendingMovies, fetchTrendingTV } from '@/app/lib/tmdb'
+import TrendingTabs from '@/app/components/trending-tabs'
 
 export default async function Home() {
-  const data = await fetchTrendingMovies()
-  const dataByPerson = await searchPerson('Tom Hanks')
-  const dataByMovie = await searchMovie('Deadpool 2')
-  const dataBySimilarMovie = await searchSimilarMovies(383498)
+  const { results: trendingMovies } = await fetchTrendingMovies()
+  const { results: trendingTV } = await fetchTrendingTV()
 
-  //console.log(data)
-  //console.log(dataByPerson)
-  //console.log(dataByMovie)
-  console.log(dataBySimilarMovie)
+  console.log(trendingMovies[0])
+  //console.log(trendingTV)
   return (
-    <main >
-      Hi I am cinema geek!s
+    <main>
+      <h1 className="text-2xl font-bold">Trending</h1>
+      <TrendingTabs
+        initialMovies={trendingMovies}
+        initialTVShows={trendingTV}
+        initialPeople={[]}
+      />
     </main>
-  );
+  )
 }
