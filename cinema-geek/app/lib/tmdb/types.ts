@@ -29,6 +29,13 @@ export interface TrendingTVResponse {
   total_results: number
 }
 
+export interface TrendingPeopleResponse {
+  page: number
+  results: Person[]
+  total_pages: number
+  total_results: number
+}
+
 export interface TV {
   backdrop_path: string | null
   id: number

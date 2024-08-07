@@ -5,6 +5,7 @@ import {
   Movie,
   TrendingTVResponse,
   TV,
+  TrendingPeopleResponse,
 } from './types'
 
 import { getImageUrl } from './utils'
@@ -69,6 +70,21 @@ export async function fetchTrendingTV(
     results: data.results.map((tv) => ({
       ...tv,
       poster_path: getImageUrl(tv.poster_path),
+    })),
+  }
+}
+
+export async function fetchTrendingPeople(
+  page: number = 1
+): Promise<TrendingPeopleResponse> {
+  const data = await fetchTMDB<TrendingPeopleResponse>('/trending/person/day', {
+    page: page.toString(),
+  })
+  return {
+    ...data,
+    results: data.results.map((person) => ({
+      ...person,
+      profile_path: getImageUrl(person.profile_path),
     })),
   }
 }

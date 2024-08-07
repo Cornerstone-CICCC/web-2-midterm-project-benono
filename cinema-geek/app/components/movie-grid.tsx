@@ -4,16 +4,20 @@ import StarIcon from '@mui/icons-material/Star'
 import PeopleIcon from '@mui/icons-material/People'
 import ExplicitIcon from '@mui/icons-material/Explicit'
 import { Movie } from '../lib/tmdb'
-
 interface MovieGridProps {
   movies: Movie[]
+  lastElementRef: (node: HTMLDivElement | null) => void
 }
 
-export default function MovieGrid({ movies }: MovieGridProps) {
+export default function MovieGrid({ movies, lastElementRef }: MovieGridProps) {
   return (
     <div className="flex flex-wrap">
-      {movies.map((movie) => (
-        <div key={movie.id} className="w-1/4 p-0.5 relative">
+      {movies.map((movie, index) => (
+        <div
+          key={movie.id}
+          className="w-1/4 p-0.5 relative"
+          ref={index === movies.length - 1 ? lastElementRef : null}
+        >
           {movie.poster_path && (
             <Image
               src={movie.poster_path ?? ''}
