@@ -3,7 +3,11 @@ import {
   SearchPersonResponse,
   PersonMovieCredits,
   Movie,
+  TrendingTVResponse,
+  TV,
 } from './types'
+
+import { getImageUrl } from './utils'
 
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3'
 
@@ -38,10 +42,38 @@ async function fetchTMDB<T>(
   }
 }
 
-export async function fetchTrendingMovies(): Promise<TrendingMoviesResponse> {
-  return fetchTMDB<TrendingMoviesResponse>('/trending/movie/day')
+// Trending
+export async function fetchTrendingMovies(
+  page: number = 1
+): Promise<TrendingMoviesResponse> {
+  const data = await fetchTMDB<TrendingMoviesResponse>('/trending/movie/day', {
+    page: page.toString(),
+  })
+  return {
+    ...data,
+    results: data.results.map((movie) => ({
+      ...movie,
+      poster_path: getImageUrl(movie.poster_path),
+    })),
+  }
 }
 
+export async function fetchTrendingTV(
+  page: number = 1
+): Promise<TrendingTVResponse> {
+  const data = await fetchTMDB<TrendingTVResponse>('/trending/tv/day', {
+    page: page.toString(),
+  })
+  return {
+    ...data,
+    results: data.results.map((tv) => ({
+      ...tv,
+      poster_path: getImageUrl(tv.poster_path),
+    })),
+  }
+}
+
+// Search
 export async function searchMovie(query: string): Promise<Movie> {
   return fetchTMDB<Movie>(`/search/movie`, {
     query,
