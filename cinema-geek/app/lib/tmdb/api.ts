@@ -1,11 +1,12 @@
 import {
-  TrendingMoviesResponse,
+  FetchMoviesResponse,
+  FetchTVResponse,
+  FetchPeopleResponse,
   SearchPersonResponse,
   PersonMovieCredits,
   Movie,
-  TrendingTVResponse,
   TV,
-  TrendingPeopleResponse,
+  Person,
 } from './types'
 
 import { getImageUrl } from './utils'
@@ -17,6 +18,8 @@ async function fetchTMDB<T>(
   params: Record<string, string> = {}
 ): Promise<T> {
   const url = new URL(`${TMDB_BASE_URL}${endpoint}`)
+  console.log(`url: ${url.toString()}`)
+  console.log('X')
   Object.entries(params).forEach(([key, value]) => {
     url.searchParams.append(key, value)
   })
@@ -46,8 +49,8 @@ async function fetchTMDB<T>(
 // Trending
 export async function fetchTrendingMovies(
   page: number = 1
-): Promise<TrendingMoviesResponse> {
-  const data = await fetchTMDB<TrendingMoviesResponse>('/trending/movie/day', {
+): Promise<FetchMoviesResponse> {
+  const data = await fetchTMDB<FetchMoviesResponse>('/trending/movie/day', {
     page: page.toString(),
   })
   return {
@@ -61,8 +64,8 @@ export async function fetchTrendingMovies(
 
 export async function fetchTrendingTV(
   page: number = 1
-): Promise<TrendingTVResponse> {
-  const data = await fetchTMDB<TrendingTVResponse>('/trending/tv/day', {
+): Promise<FetchTVResponse> {
+  const data = await fetchTMDB<FetchTVResponse>('/trending/tv/day', {
     page: page.toString(),
   })
   return {
@@ -76,8 +79,8 @@ export async function fetchTrendingTV(
 
 export async function fetchTrendingPeople(
   page: number = 1
-): Promise<TrendingPeopleResponse> {
-  const data = await fetchTMDB<TrendingPeopleResponse>('/trending/person/day', {
+): Promise<FetchPeopleResponse> {
+  const data = await fetchTMDB<FetchPeopleResponse>('/trending/person/day', {
     page: page.toString(),
   })
   return {
@@ -90,16 +93,28 @@ export async function fetchTrendingPeople(
 }
 
 // Search
-export async function searchMovie(query: string): Promise<Movie> {
-  return fetchTMDB<Movie>(`/search/movie`, {
+export async function searchMovie(query: string): Promise<FetchMoviesResponse> {
+  return fetchTMDB<FetchMoviesResponse>(`/search/movie`, {
     query,
     include_adult: 'false',
     language: 'en-US',
   })
 }
 
-export async function searchSimilarMovies(movieId: number): Promise<Movie> {
-  return fetchTMDB<Movie>(`/movie/${movieId}/similar`, { language: 'en-US' })
+export async function searchTV(query: string): Promise<FetchTVResponse> {
+  return fetchTMDB<FetchTVResponse>(`/search/tv`, {
+    query,
+    include_adult: 'false',
+    language: 'en-US',
+  })
+}
+
+export async function searchSimilarMovies(
+  movieId: number
+): Promise<FetchMoviesResponse> {
+  return fetchTMDB<FetchMoviesResponse>(`/movie/${movieId}/similar`, {
+    language: 'en-US',
+  })
 }
 
 export async function searchPerson(

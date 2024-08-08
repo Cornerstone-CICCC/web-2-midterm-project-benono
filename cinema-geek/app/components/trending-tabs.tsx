@@ -4,10 +4,8 @@ import React, { useState, useRef, useCallback, useEffect } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import MovieGrid from './movie-grid'
 import TVGrid from './tv-grid'
-import { Movie, TV, Person } from '../lib/tmdb'
-import { fetchMoreTrending } from '../lib/actions'
-
-type Tab = 'movies' | 'tvShows' | 'people'
+import { Movie, TV, Person, MediaType } from '../lib/tmdb'
+import { fetchTrendingAction } from '../lib/actions'
 
 interface TrendingTabsProps {
   initialMovies: Movie[]
@@ -26,7 +24,7 @@ export default function TrendingTabs({
   initialPeople,
   initialTotalPages,
 }: TrendingTabsProps) {
-  const [activeTab, setActiveTab] = useState<Tab>('movies')
+  const [activeTab, setActiveTab] = useState<MediaType>(MediaType.movie)
   const [movies, setMovies] = useState(initialMovies)
   const [tvShows, setTVShows] = useState(initialTVShows)
   const [people, setPeople] = useState(initialPeople)
@@ -39,18 +37,18 @@ export default function TrendingTabs({
   const loadMore = useCallback(async () => {
     setLoading(true)
     try {
-      const { results, totalPages } = await fetchMoreTrending(
+      const { results, totalPages } = await fetchTrendingAction(
         activeTab,
         page + 1
       )
       switch (activeTab) {
-        case 'movies':
+        case MediaType.movie:
           setMovies((prev) => [...prev, ...(results as Movie[])])
           break
-        case 'tvShows':
+        case MediaType.tvShow:
           setTVShows((prev) => [...prev, ...(results as TV[])])
           break
-        case 'people':
+        case MediaType.people:
           setPeople((prev) => [...prev, ...(results as Person[])])
           break
       }
@@ -84,30 +82,39 @@ export default function TrendingTabs({
 
   const renderContent = (activeTab: string) => {
     switch (activeTab) {
-      case 'movies':
+      case MediaType.movie:
         return <MovieGrid movies={movies} lastElementRef={lastElementRef} />
-      case 'tvShows':
+      case MediaType.tvShow:
         return <TVGrid tvShows={tvShows} lastElementRef={lastElementRef} />
-      case 'people':
+      case MediaType.people:
         return <div>People</div>
     }
   }
 
-  const handleTabChange = (value: string) => {
-    setActiveTab(value as Tab)
+  const handleTabChange = (value: MediaType) => {
+    setActiveTab(value)
   }
 
   return (
     <div>
-      <Tabs defaultValue="movies" onValueChange={handleTabChange}>
+      <Tabs
+        defaultValue={MediaType.movie}
+        onValueChange={(value: string) => handleTabChange(value as MediaType)}
+      >
         <TabsList>
-          <TabsTrigger value="movies">Movies</TabsTrigger>
-          <TabsTrigger value="tvShows">TV Shows</TabsTrigger>
-          <TabsTrigger value="people">People</TabsTrigger>
+          <TabsTrigger value={MediaType.movie}>Movies</TabsTrigger>
+          <TabsTrigger value={MediaType.tvShow}>TV Shows</TabsTrigger>
+          <TabsTrigger value={MediaType.people}>People</TabsTrigger>
         </TabsList>
-        <TabsContent value="movies">{renderContent('movies')}</TabsContent>
-        <TabsContent value="tvShows">{renderContent('tvShows')}</TabsContent>
-        <TabsContent value="people">{renderContent('people')}</TabsContent>
+        <TabsContent value={MediaType.movie}>
+          {renderContent(MediaType.movie)}
+        </TabsContent>
+        <TabsContent value={MediaType.tvShow}>
+          {renderContent(MediaType.tvShow)}
+        </TabsContent>
+        <TabsContent value={MediaType.people}>
+          {renderContent(MediaType.people)}
+        </TabsContent>
       </Tabs>
       {loading && <p>Loading more...</p>}
     </div>

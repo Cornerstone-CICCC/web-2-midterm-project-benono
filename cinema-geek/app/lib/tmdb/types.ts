@@ -26,21 +26,21 @@ export interface Person {
   profile_path: string | null
 }
 
-export interface TrendingMoviesResponse {
+export interface FetchMoviesResponse {
   page: number
   results: Movie[]
   total_pages: number
   total_results: number
 }
 
-export interface TrendingTVResponse {
+export interface FetchTVResponse {
   page: number
   results: TV[]
   total_pages: number
   total_results: number
 }
 
-export interface TrendingPeopleResponse {
+export interface FetchPeopleResponse {
   page: number
   results: Person[]
   total_pages: number
@@ -70,4 +70,17 @@ export interface PersonMovieCredits {
     poster_path: string | null
     release_date: string
   }[]
+}
+
+export interface Genre {
+  id: number
+  name: string
+}
+
+//export type MediaType = 'movies' | 'tvShows' | 'people'
+
+export enum MediaType {
+  movie = 'movie',
+  tvShow = 'tvShow',
+  people = 'people',
 }
