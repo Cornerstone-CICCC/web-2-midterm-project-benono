@@ -14,7 +14,7 @@ export default function TVGrid({ tvShows, lastElementRef }: TVGridProps) {
     <div className="flex flex-wrap">
       {tvShows.map((tvShow, index) => (
         <div
-          key={tvShow.id}
+          key={`${tvShow.id}-${index}`}
           className="w-1/4 p-0.5 relative"
           ref={index === tvShows.length - 1 ? lastElementRef : null}
         >
