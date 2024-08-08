@@ -3,6 +3,7 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import MovieGrid from './movie-grid'
+import TVGrid from './tv-grid'
 import { Movie, TV, Person } from '../lib/tmdb'
 import { fetchMoreTrending } from '../lib/actions'
 
@@ -60,7 +61,7 @@ export default function TrendingTabs({
     } finally {
       setLoading(false)
     }
-  }, [activeTab, page])
+  }, [page, activeTab])
 
   const lastElementRef = useCallback(
     (node: HTMLElement | null) => {
@@ -79,50 +80,34 @@ export default function TrendingTabs({
   useEffect(() => {
     setPage(1)
     setHasMore(true)
-  }, [activeTab])
+  }, [])
 
-  const renderContent = () => {
+  const renderContent = (activeTab: string) => {
     switch (activeTab) {
       case 'movies':
         return <MovieGrid movies={movies} lastElementRef={lastElementRef} />
       case 'tvShows':
-        return (
-          <ul>
-            {tvShows.map((show, index) => (
-              <li
-                key={show.id}
-                ref={index === tvShows.length - 1 ? lastElementRef : null}
-              >
-                {show.name}
-              </li>
-            ))}
-          </ul>
-        )
+        return <TVGrid tvShows={tvShows} lastElementRef={lastElementRef} />
       case 'people':
-        return (
-          <ul>
-            {people.map((person, index) => (
-              <li
-                key={person.id}
-                ref={index === people.length - 1 ? lastElementRef : null}
-              >
-                {person.name}
-              </li>
-            ))}
-          </ul>
-        )
+        return <div>People</div>
     }
+  }
+
+  const handleTabChange = (value: string) => {
+    setActiveTab(value as Tab)
   }
 
   return (
     <div>
-      <Tabs defaultValue="movies">
+      <Tabs defaultValue="movies" onValueChange={handleTabChange}>
         <TabsList>
           <TabsTrigger value="movies">Movies</TabsTrigger>
           <TabsTrigger value="tvShows">TV Shows</TabsTrigger>
           <TabsTrigger value="people">People</TabsTrigger>
         </TabsList>
-        <TabsContent value="movies">{renderContent()}</TabsContent>
+        <TabsContent value="movies">{renderContent('movies')}</TabsContent>
+        <TabsContent value="tvShows">{renderContent('tvShows')}</TabsContent>
+        <TabsContent value="people">{renderContent('people')}</TabsContent>
       </Tabs>
       {loading && <p>Loading more...</p>}
     </div>
