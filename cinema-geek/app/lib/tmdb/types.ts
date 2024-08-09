@@ -7,6 +7,7 @@ export interface Movie {
   adult: boolean
   vote_average: number
   vote_count: number
+  media_type: MediaType
 }
 
 export interface TV {
@@ -18,12 +19,14 @@ export interface TV {
   adult: boolean
   vote_average: number
   vote_count: number
+  media_type: MediaType
 }
 
 export interface Person {
   id: number
   name: string
   profile_path: string | null
+  media_type: MediaType
 }
 
 export interface FetchMoviesResponse {
@@ -50,6 +53,13 @@ export interface FetchPeopleResponse {
 export interface SearchPersonResponse {
   page: number
   results: Person[]
+  total_pages: number
+  total_results: number
+}
+
+export interface SearchMultiResponse {
+  page: number
+  results: (Movie | TV | Person)[]
   total_pages: number
   total_results: number
 }
@@ -81,6 +91,7 @@ export interface Genre {
 
 export enum MediaType {
   movie = 'movie',
-  tvShow = 'tvShow',
+  tv = 'tv',
   people = 'people',
+  multi = 'multi',
 }
