@@ -13,7 +13,6 @@ type RenderGridsProps = {
 
 export default function RenderGrids({
   results,
-  type,
   lastElementRef,
   loading,
 }: RenderGridsProps) {
@@ -41,9 +40,15 @@ export default function RenderGrids({
   }
 
   return (
-    <div>
-      {renderContent()}
-      {loading && <p>Loading more...</p>}
-    </div>
+    <>
+      {results.length > 0 ? (
+        <div>
+          {renderContent()}
+          {loading && <p>Loading more...</p>}
+        </div>
+      ) : (
+        <div className="mt-10 text-center text-2xl font-bold">No Data</div>
+      )}
+    </>
   )
 }
