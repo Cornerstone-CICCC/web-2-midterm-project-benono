@@ -7,6 +7,7 @@ import {
   Movie,
   TV,
   Person,
+  SearchMultiResponse,
 } from './types'
 
 import { getImageUrl } from './utils'
@@ -122,6 +123,18 @@ export async function searchPerson(
 ): Promise<SearchPersonResponse> {
   return fetchTMDB<SearchPersonResponse>('/search/person', {
     query,
+    include_adult: 'false',
+    language: 'en-US',
+  })
+}
+
+export async function searchMulti(
+  query: string,
+  page: number
+): Promise<SearchMultiResponse> {
+  return fetchTMDB<SearchMultiResponse>('/search/multi', {
+    query,
+    page: page.toString(),
     include_adult: 'false',
     language: 'en-US',
   })
