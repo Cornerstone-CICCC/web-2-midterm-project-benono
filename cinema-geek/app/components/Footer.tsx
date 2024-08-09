@@ -13,7 +13,7 @@ export const Footer: React.FC = () => {
 
   const links = [
     { href: '/', icon: WhatshotIcon, label: 'Trends' },
-    { href: '/', icon: SearchIcon, label: 'Search' },
+    { href: '/search', icon: SearchIcon, label: 'Search' },
     { href: '/', icon: SettingsIcon, label: 'Settings' },
   ]
 
