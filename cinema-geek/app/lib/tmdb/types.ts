@@ -95,3 +95,10 @@ export enum MediaType {
   people = 'people',
   multi = 'multi',
 }
+
+export interface SearchParams {
+  type?: MediaType
+  page?: string
+  year?: string
+  adult?: boolean
+}

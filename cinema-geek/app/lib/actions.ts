@@ -31,21 +31,52 @@ export async function fetchTrendingAction(type: MediaType, page: number) {
 export async function searchAction(
   query: string,
   page: number,
-  type: MediaType
+  type: MediaType,
+  optionalParams?: {
+    adult?: boolean
+    year?: string
+  }
 ): Promise<{
   results: Movie[] | TV[] | Person[] | (Movie | TV | Person)[]
   totalPages: number
 }> {
   switch (type) {
     case MediaType.movie:
-      const movieData = await searchMovie(query)
-      return { results: movieData.results, totalPages: movieData.total_pages }
+      const movieData = await searchMovie(
+        query,
+        optionalParams?.adult,
+        optionalParams?.year
+      )
+      const movieResults = movieData.results.map((result) => {
+        return {
+          ...result,
+          media_type: MediaType.movie,
+        }
+      })
+      return { results: movieResults, totalPages: movieData.total_pages }
     case MediaType.tv:
-      const tvData = await searchTV(query)
-      return { results: tvData.results, totalPages: tvData.total_pages }
+      const tvData = await searchTV(
+        query,
+        optionalParams?.adult,
+        optionalParams?.year
+      )
+      const tvResults = tvData.results.map((result) => {
+        return {
+          ...result,
+          media_type: MediaType.tv,
+        }
+      })
+      return { results: tvResults, totalPages: tvData.total_pages }
     case MediaType.people:
       const peopleData = await searchPerson(query)
-      return { results: peopleData.results, totalPages: peopleData.total_pages }
+      const peopleResults = peopleData.results.map((result) => {
+        return {
+          ...result,
+          media_type: MediaType.people,
+        }
+      })
+      return { results: peopleResults, totalPages: peopleData.total_pages }
+
     case MediaType.multi:
       const multiData = await searchMulti(query, page)
       // exept people in multi data

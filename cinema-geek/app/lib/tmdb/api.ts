@@ -94,27 +94,29 @@ export async function fetchTrendingPeople(
 }
 
 // Search
-export async function searchMovie(query: string): Promise<FetchMoviesResponse> {
+export async function searchMovie(
+  query: string,
+  adult: boolean = false,
+  year: string = ''
+): Promise<FetchMoviesResponse> {
   return fetchTMDB<FetchMoviesResponse>(`/search/movie`, {
     query,
-    include_adult: 'false',
+    include_adult: adult.toString(),
     language: 'en-US',
+    year: year,
   })
 }
 
-export async function searchTV(query: string): Promise<FetchTVResponse> {
+export async function searchTV(
+  query: string,
+  adult: boolean = false,
+  year: string = ''
+): Promise<FetchTVResponse> {
   return fetchTMDB<FetchTVResponse>(`/search/tv`, {
     query,
-    include_adult: 'false',
+    include_adult: adult.toString(),
     language: 'en-US',
-  })
-}
-
-export async function searchSimilarMovies(
-  movieId: number
-): Promise<FetchMoviesResponse> {
-  return fetchTMDB<FetchMoviesResponse>(`/movie/${movieId}/similar`, {
-    language: 'en-US',
+    year: year,
   })
 }
 
