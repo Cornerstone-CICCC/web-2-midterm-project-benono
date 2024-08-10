@@ -11,18 +11,16 @@ export default async function Home() {
   return (
     <>
       <Header title="Trend" currentPath="/" />
-      <main>
-        <TrendingTabs
-          initialMovies={trendingMovies}
-          initialTVShows={trendingTV}
-          initialPeople={[]}
-          initialTotalPages={{
-            movies: trendingMoviesTotalPages,
-            tvShows: trendingTVTotalPages,
-            people: 0,
-          }}
-        />
-      </main>
+      <TrendingTabs
+        initialMovies={trendingMovies}
+        initialTVShows={trendingTV}
+        initialPeople={[]}
+        initialTotalPages={{
+          movies: trendingMoviesTotalPages,
+          tvShows: trendingTVTotalPages,
+          people: 0,
+        }}
+      />
     </>
   )
 }
