@@ -37,15 +37,15 @@ export default function TrendingTabs({
   const loadMore = useCallback(async () => {
     setLoading(true)
     try {
-      const { results, totalPages } = await fetchTrendingAction(
-        activeTab,
-        page + 1
-      )
+      const response = await fetchTrendingAction(activeTab, page + 1)
+      if (!response) return
+      const results = response.results
+      const totalPages = response.totalPages
       switch (activeTab) {
         case MediaType.movie:
           setMovies((prev) => [...prev, ...(results as Movie[])])
           break
-        case MediaType.tvShow:
+        case MediaType.tv:
           setTVShows((prev) => [...prev, ...(results as TV[])])
           break
         case MediaType.people:
@@ -84,7 +84,7 @@ export default function TrendingTabs({
     switch (activeTab) {
       case MediaType.movie:
         return <MovieGrid movies={movies} lastElementRef={lastElementRef} />
-      case MediaType.tvShow:
+      case MediaType.tv:
         return <TVGrid tvShows={tvShows} lastElementRef={lastElementRef} />
       case MediaType.people:
         return <div>People</div>
@@ -103,14 +103,14 @@ export default function TrendingTabs({
       >
         <TabsList>
           <TabsTrigger value={MediaType.movie}>Movies</TabsTrigger>
-          <TabsTrigger value={MediaType.tvShow}>TV Shows</TabsTrigger>
+          <TabsTrigger value={MediaType.tv}>TV Shows</TabsTrigger>
           <TabsTrigger value={MediaType.people}>People</TabsTrigger>
         </TabsList>
         <TabsContent value={MediaType.movie}>
           {renderContent(MediaType.movie)}
         </TabsContent>
-        <TabsContent value={MediaType.tvShow}>
-          {renderContent(MediaType.tvShow)}
+        <TabsContent value={MediaType.tv}>
+          {renderContent(MediaType.tv)}
         </TabsContent>
         <TabsContent value={MediaType.people}>
           {renderContent(MediaType.people)}
