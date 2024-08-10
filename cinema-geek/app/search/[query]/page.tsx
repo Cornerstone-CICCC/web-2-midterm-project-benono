@@ -8,6 +8,7 @@ import { MediaType } from '@/app/lib/tmdb/types'
 import { useRouter } from 'next/navigation'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import NextLink from 'next/link'
+import { Header } from '@/app/components/header'
 
 import { searchAction } from '@/app/lib/actions'
 
@@ -91,18 +92,12 @@ export default function Page({
 
   return (
     <main>
-      <div className="mx-auto py-2 flex justify-center items-center relative">
-        <div className="w-20 absolute left-2 flex items-center">
-          <NextLink href="/search">
-            <ArrowBackIosIcon />
-          </NextLink>
-          <NextLink href="/search">
-            <div className="ml-[-5px] text-sm">Search</div>
-          </NextLink>
-        </div>
-
-        <h1 className="text-center text-2xl font-bold">{decodeURI(query)}</h1>
-      </div>
+      <Header
+        title={decodeURI(query)}
+        currentPath={`/search/${query}`}
+        fromPath={`/search`}
+        fromTitle="Search"
+      />
 
       <div>
         {searchResults && (

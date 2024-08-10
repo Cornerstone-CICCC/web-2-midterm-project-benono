@@ -3,6 +3,7 @@
 import { SearchForm } from '@/app/components/search-form'
 import { MediaType } from '@/app/lib/tmdb/types'
 import { useRouter } from 'next/navigation'
+import { Header } from '@/app/components/header'
 
 export default function Page() {
   const router = useRouter()
@@ -28,11 +29,13 @@ export default function Page() {
   }
 
   return (
-    <main>
-      <h1 className="py-2 text-center text-2xl font-bold">Search</h1>
-      <div className="mx-auto ">
-        <SearchForm handleSubmit={handleSubmit} />
-      </div>
-    </main>
+    <>
+      <Header title="Search" currentPath="/search" />
+      <main>
+        <div className="mx-auto ">
+          <SearchForm handleSubmit={handleSubmit} />
+        </div>
+      </main>
+    </>
   )
 }

@@ -8,17 +8,28 @@ import { useSearchParams } from 'next/navigation'
 interface HeaderProps {
   title: string
   currentPath: string
+  fromPath?: string
+  fromTitle?: string
 }
 
-export const Header = ({ title, currentPath }: HeaderProps) => {
+export const Header = ({
+  title,
+  currentPath,
+  fromPath,
+  fromTitle,
+}: HeaderProps) => {
   const searchParams = useSearchParams()
-  const from = searchParams.get('from')
+  let from = fromPath
+  if (!from) {
+    from = searchParams.get('from') ?? undefined
+  }
 
   return (
     <header className="flex items-center justify-center relative">
       {from ? (
         <Link href={from} className="absolute left-6">
           <ArrowBackIosIcon />
+          {fromTitle && <span className="text-sm">{fromTitle}</span>}
         </Link>
       ) : (
         <Link href={`/about?from=${currentPath}`} className="absolute left-6">
