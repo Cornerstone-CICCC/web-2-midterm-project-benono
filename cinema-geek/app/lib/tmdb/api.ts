@@ -71,7 +71,7 @@ export async function fetchTrendingPeople(
 }
 
 // Search
-export async function searchMovie(
+export async function searchMovies(
   query: string,
   adult: boolean = false,
   year: string = ''
@@ -84,7 +84,7 @@ export async function searchMovie(
   })
 }
 
-export async function searchTV(
+export async function searchTVs(
   query: string,
   adult: boolean = false,
   year: string = ''
@@ -97,7 +97,7 @@ export async function searchTV(
   })
 }
 
-export async function searchPerson(
+export async function searchPeople(
   query: string
 ): Promise<SearchPersonResponse> {
   return fetchTMDB<SearchPersonResponse>('/search/person', {

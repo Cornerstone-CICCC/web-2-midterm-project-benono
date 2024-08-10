@@ -5,9 +5,9 @@ import {
   fetchTrendingTV,
   fetchTrendingPeople,
   searchMulti,
-  searchMovie,
-  searchTV,
-  searchPerson,
+  searchMovies,
+  searchTVs,
+  searchPeople,
   Movie,
   TV,
   Person,
@@ -42,7 +42,7 @@ export async function searchAction(
 }> {
   switch (type) {
     case MediaType.movie:
-      const movieData = await searchMovie(
+      const movieData = await searchMovies(
         query,
         optionalParams?.adult,
         optionalParams?.year
@@ -55,7 +55,7 @@ export async function searchAction(
       })
       return { results: movieResults, totalPages: movieData.total_pages }
     case MediaType.tv:
-      const tvData = await searchTV(
+      const tvData = await searchTVs(
         query,
         optionalParams?.adult,
         optionalParams?.year
@@ -68,7 +68,7 @@ export async function searchAction(
       })
       return { results: tvResults, totalPages: tvData.total_pages }
     case MediaType.people:
-      const peopleData = await searchPerson(query)
+      const peopleData = await searchPeople(query)
       const peopleResults = peopleData.results.map((result) => {
         return {
           ...result,
