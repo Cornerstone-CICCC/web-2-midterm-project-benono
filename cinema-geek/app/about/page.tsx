@@ -1,12 +1,15 @@
 import React from 'react'
 import Link from 'next/link'
+import { Suspense } from 'react'
 
 import { Header } from '@/app/components/header'
 
 export default function Page() {
   return (
     <>
-      <Header title="About" currentPath="/about" />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Header title="About" currentPath="/about" />
+      </Suspense>
       <main className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-6">About Movie Geek</h1>
 

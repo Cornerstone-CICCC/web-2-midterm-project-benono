@@ -4,6 +4,7 @@ import { SearchForm } from '@/app/components/search-form'
 import { MediaType } from '@/app/lib/tmdb/types'
 import { useRouter } from 'next/navigation'
 import { Header } from '@/app/components/header'
+import { Suspense } from 'react'
 
 export default function Page() {
   const router = useRouter()
@@ -30,9 +31,11 @@ export default function Page() {
 
   return (
     <>
-      <div className="mx-auto md:p-4">
-        <Header title="Search" currentPath="/search" />
-        <SearchForm handleSubmit={handleSubmit} />
+      <div className="mx-auto">
+        <Suspense fallback={<div>Loading...</div>}>
+          <Header title="Search" currentPath="/search" />
+          <SearchForm handleSubmit={handleSubmit} />
+        </Suspense>
       </div>
     </>
   )

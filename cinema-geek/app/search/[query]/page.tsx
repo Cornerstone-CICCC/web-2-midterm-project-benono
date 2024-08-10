@@ -6,6 +6,7 @@ import RenderGrids from '@/app/components/render-grids'
 import { Movie, TV, Person } from '@/app/lib/tmdb'
 import { MediaType } from '@/app/lib/tmdb/types'
 import { Header } from '@/app/components/header'
+import { Suspense } from 'react'
 
 import { searchAction } from '@/app/lib/actions'
 
@@ -88,12 +89,14 @@ export default function Page({
 
   return (
     <>
-      <Header
-        title={decodeURI(query)}
-        currentPath={`/search/${query}`}
-        fromPath={`/search`}
-        fromTitle="Search"
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Header
+          title={decodeURI(query)}
+          currentPath={`/search/${query}`}
+          fromPath={`/search`}
+          fromTitle="Search"
+        />
+      </Suspense>
 
       <div>
         {searchResults && (

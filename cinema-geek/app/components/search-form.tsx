@@ -13,14 +13,22 @@ import {
   SelectItem,
 } from '@/components/ui/select'
 
-export function SearchForm({ handleSubmit }: { handleSubmit: any }) {
+import { cn } from '@/lib/utils'
+
+export function SearchForm({
+  handleSubmit,
+  className,
+}: {
+  handleSubmit: any
+  className?: string
+}) {
   const [state, formAction] = useFormState(handleSubmit, null)
   const [searchType, setSearchType] = useState('multi')
 
   return (
     <form
       action={formAction}
-      className="w-[90vw] md:w-[calc(100vw-256px)] mx-auto"
+      className={cn('w-[90vw] md:w-[calc(100vw-256px)] mx-auto', className)}
     >
       <div className="flex items-center mb-2">
         <Select onValueChange={setSearchType} defaultValue="multi">
