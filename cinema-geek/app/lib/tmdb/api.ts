@@ -5,6 +5,7 @@ import {
   SearchPersonResponse,
   PersonMovieCredits,
   SearchMultiResponse,
+  MovieDetail,
 } from './types'
 
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3'
@@ -119,10 +120,9 @@ export async function searchMulti(
   })
 }
 
-export async function fetchPersonMovies(
-  personId: number
-): Promise<PersonMovieCredits> {
-  return fetchTMDB<PersonMovieCredits>(`/person/${personId}/movie_credits`, {
+export async function fetchMovieById(movieId: string): Promise<MovieDetail> {
+  return fetchTMDB<MovieDetail>(`/movie/${movieId}`, {
     language: 'en-US',
+    append_to_response: 'credits',
   })
 }

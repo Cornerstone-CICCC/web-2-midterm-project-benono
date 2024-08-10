@@ -11,15 +11,46 @@ export interface Movie {
 }
 
 export interface MovieDetail extends Movie {
+  tagline: string
+  overview: string
   genres: Genre[]
-
   budget: number
   revenue: number
   runtime: number
-  status: string
-  tagline: string
+  origin_country: string[]
+  production_companies: ProductionCompany[]
+  credits: Credits
 }
 
+export interface Credits {
+  cast: Cast[]
+  crew: Crew[]
+}
+
+export interface Cast {
+  id: number
+  name: string
+  character: string
+  profile_path: string | null
+  gender: number
+  order: number
+}
+
+export interface ProductionCompany {
+  id: number
+  name: string
+  logo_path: string | null
+  origin_country: string
+}
+
+export interface Crew {
+  id: number
+  name: string
+  job: string
+  department: string
+  profile_path: string | null
+  gender: number
+}
 export interface TV {
   id: number
   name: string
@@ -111,4 +142,17 @@ export interface SearchParams {
   page?: string
   year?: string
   adult?: boolean
+}
+
+export function getMainCast(credits: Credits, limit: number = 5): Cast[] {
+  return credits.cast.sort((a, b) => a.order - b.order).slice(0, limit)
+}
+
+export function getDirectorAndWriter(credits: Credits): Crew[] {
+  return credits.crew.filter(
+    (crewMember) =>
+      crewMember.job === 'Director' ||
+      crewMember.job === 'Screenplay' ||
+      crewMember.job === 'Writer'
+  )
 }
