@@ -4,13 +4,8 @@ import {
   FetchPeopleResponse,
   SearchPersonResponse,
   PersonMovieCredits,
-  Movie,
-  TV,
-  Person,
   SearchMultiResponse,
 } from './types'
-
-import { getImageUrl } from './utils'
 
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3'
 
@@ -54,13 +49,7 @@ export async function fetchTrendingMovies(
   const data = await fetchTMDB<FetchMoviesResponse>('/trending/movie/day', {
     page: page.toString(),
   })
-  return {
-    ...data,
-    results: data.results.map((movie) => ({
-      ...movie,
-      poster_path: getImageUrl(movie.poster_path),
-    })),
-  }
+  return data
 }
 
 export async function fetchTrendingTV(
@@ -69,13 +58,7 @@ export async function fetchTrendingTV(
   const data = await fetchTMDB<FetchTVResponse>('/trending/tv/day', {
     page: page.toString(),
   })
-  return {
-    ...data,
-    results: data.results.map((tv) => ({
-      ...tv,
-      poster_path: getImageUrl(tv.poster_path),
-    })),
-  }
+  return data
 }
 
 export async function fetchTrendingPeople(
@@ -84,13 +67,7 @@ export async function fetchTrendingPeople(
   const data = await fetchTMDB<FetchPeopleResponse>('/trending/person/day', {
     page: page.toString(),
   })
-  return {
-    ...data,
-    results: data.results.map((person) => ({
-      ...person,
-      profile_path: getImageUrl(person.profile_path),
-    })),
-  }
+  return data
 }
 
 // Search
