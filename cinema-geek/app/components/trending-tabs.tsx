@@ -2,10 +2,9 @@
 
 import React, { useState, useRef, useCallback, useEffect } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import MovieGrid from './movie-grid'
-import TVGrid from './tv-grid'
 import { Movie, TV, Person, MediaType } from '../lib/tmdb'
 import { fetchTrendingAction } from '../lib/actions'
+import RenderGrids from './render-grids'
 
 interface TrendingTabsProps {
   initialMovies: Movie[]
@@ -80,17 +79,6 @@ export default function TrendingTabs({
     setHasMore(true)
   }, [])
 
-  const renderContent = (activeTab: string) => {
-    switch (activeTab) {
-      case MediaType.movie:
-        return <MovieGrid movies={movies} lastElementRef={lastElementRef} />
-      case MediaType.tv:
-        return <TVGrid tvShows={tvShows} lastElementRef={lastElementRef} />
-      case MediaType.people:
-        return <div>People</div>
-    }
-  }
-
   const handleTabChange = (value: MediaType) => {
     setActiveTab(value)
   }
@@ -106,17 +94,32 @@ export default function TrendingTabs({
           <TabsTrigger value={MediaType.tv}>TV Shows</TabsTrigger>
           <TabsTrigger value={MediaType.people}>People</TabsTrigger>
         </TabsList>
+
         <TabsContent value={MediaType.movie}>
-          {renderContent(MediaType.movie)}
+          <RenderGrids
+            results={movies}
+            lastElementRef={lastElementRef}
+            isMulti={false}
+            loading={loading}
+          />
         </TabsContent>
         <TabsContent value={MediaType.tv}>
-          {renderContent(MediaType.tv)}
+          <RenderGrids
+            results={tvShows}
+            lastElementRef={lastElementRef}
+            isMulti={false}
+            loading={loading}
+          />
         </TabsContent>
         <TabsContent value={MediaType.people}>
-          {renderContent(MediaType.people)}
+          <RenderGrids
+            results={people}
+            lastElementRef={lastElementRef}
+            isMulti={false}
+            loading={loading}
+          />
         </TabsContent>
       </Tabs>
-      {loading && <p>Loading more...</p>}
     </div>
   )
 }

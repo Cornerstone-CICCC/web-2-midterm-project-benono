@@ -6,14 +6,15 @@ import RenderItem from './render-item'
 
 type RenderGridsProps = {
   results: Movie[] | TV[] | Person[] | (Movie | TV | Person)[]
-  type: MediaType
   lastElementRef: (node: HTMLElement | null) => void
+  isMulti?: boolean
   loading: boolean
 }
 
 export default function RenderGrids({
   results,
   lastElementRef,
+  isMulti = true,
   loading,
 }: RenderGridsProps) {
   const renderContent = () => {
@@ -26,11 +27,19 @@ export default function RenderGrids({
                 className="w-1/4 p-0.5 relative"
                 ref={index === results.length - 1 ? lastElementRef : null}
               >
-                <RenderItem item={result} type={result.media_type} />
+                <RenderItem
+                  item={result}
+                  type={result.media_type}
+                  isMulti={isMulti}
+                />
               </div>
             ) : (
               <div className="w-1/4 p-0.5 relative">
-                <RenderItem item={result} type={result.media_type} />
+                <RenderItem
+                  item={result}
+                  type={result.media_type}
+                  isMulti={isMulti}
+                />
               </div>
             )}
           </React.Fragment>
