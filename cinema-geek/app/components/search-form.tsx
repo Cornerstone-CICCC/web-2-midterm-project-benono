@@ -1,31 +1,71 @@
 'use client'
 
+import { useState } from 'react'
 import { useFormState } from 'react-dom'
 import { Search } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-
-const initialState = {
-  message: '',
-}
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from '@/components/ui/select'
 
 export function SearchForm({ handleSubmit }: { handleSubmit: any }) {
-  const [state, formAction] = useFormState(handleSubmit, initialState)
+  const [state, formAction] = useFormState(handleSubmit, null)
+  const [searchType, setSearchType] = useState('multi')
 
   return (
     <form action={formAction} className="w-[90vw] mx-auto">
-      <div className="flex items-center">
+      <div className="flex items-center mb-2">
+        <Select onValueChange={setSearchType} defaultValue="multi">
+          <SelectTrigger className="w-[80px]">
+            <SelectValue placeholder="Search type" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="multi">All</SelectItem>
+            <SelectItem value="movie">Movies</SelectItem>
+            <SelectItem value="tv">TV</SelectItem>
+            <SelectItem value="person">People</SelectItem>
+          </SelectContent>
+        </Select>
         <Input
           type="text"
           name="query"
           placeholder="Enter title or name"
-          className="mb-2 w-[calc(90vw-100px)]"
+          className="ml-2 w-[calc(90vw-180px)]"
           icon={<Search />}
         />
-        <input type="hidden" name="type" value="multi" />
-        <Button type="submit">Search</Button>
+        <input type="hidden" name="type" value={searchType} />
+        <Button type="submit" className="ml-2">
+          Search
+        </Button>
       </div>
-      <div className="flex items-center"></div>
+      {(searchType === 'movie' || searchType === 'tv') && (
+        <div className="flex items-center pl-3">
+          <div className="flex items-center w-[100px]">
+            <label htmlFor="adult" className="mr-2 text-sm">
+              Adult
+            </label>
+            <Input
+              type="checkbox"
+              id="adult"
+              name="adult"
+              value="true"
+              className="ml-2 h-4"
+            />
+          </div>
+          <Input
+            type="number"
+            name="year"
+            placeholder="Year"
+            className="w-[100px]"
+          />
+        </div>
+      )}
+      {/* Similar conditions for TV and Person */}
     </form>
   )
 }
