@@ -4,6 +4,7 @@ import PeopleIcon from '@mui/icons-material/People'
 import TheatersIcon from '@mui/icons-material/Theaters'
 import TvIcon from '@mui/icons-material/Tv'
 import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported'
+import Link from 'next/link'
 
 import {
   Dialog,
@@ -77,26 +78,32 @@ export default function RenderItem({
         const movie = item as Movie
         return (
           <>
-            {renderImage(movie.poster_path, movie.title)}
-            {isMulti && (
-              <div className="absolute top-0.5 right-0.5 bg-secondary p-1">
-                <TheatersIcon className="text-white" />
-              </div>
-            )}
-            {renderRating(movie.vote_average, movie.vote_count)}
+            <Link href={`/movie/${movie.id}`}>
+              {renderImage(movie.poster_path, movie.title)}
+
+              {isMulti && (
+                <div className="absolute top-0.5 right-0.5 bg-secondary p-1">
+                  <TheatersIcon className="text-white" />
+                </div>
+              )}
+              {renderRating(movie.vote_average, movie.vote_count)}
+            </Link>
           </>
         )
       case MediaType.tv:
         const tv = item as TV
         return (
           <>
-            {renderImage(tv.poster_path, tv.name)}
-            {isMulti && (
-              <div className="absolute top-0.5 right-0.5 bg-secondary p-1">
-                <TvIcon className="text-white" />
-              </div>
-            )}
-            {renderRating(tv.vote_average, tv.vote_count)}
+            <Link href={`/tv/${tv.id}`}>
+              {renderImage(tv.poster_path, tv.name)}
+
+              {isMulti && (
+                <div className="absolute top-0.5 right-0.5 bg-secondary p-1">
+                  <TvIcon className="text-white" />
+                </div>
+              )}
+              {renderRating(tv.vote_average, tv.vote_count)}
+            </Link>
           </>
         )
       case MediaType.people:

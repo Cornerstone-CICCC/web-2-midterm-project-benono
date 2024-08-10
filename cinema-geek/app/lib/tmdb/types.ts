@@ -10,6 +10,16 @@ export interface Movie {
   media_type: MediaType
 }
 
+export interface MovieDetail extends Movie {
+  genres: Genre[]
+
+  budget: number
+  revenue: number
+  runtime: number
+  status: string
+  tagline: string
+}
+
 export interface TV {
   id: number
   name: string

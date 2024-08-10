@@ -24,14 +24,15 @@ export function SearchForm({ handleSubmit }: { handleSubmit: any }) {
     >
       <div className="flex items-center mb-2">
         <Select onValueChange={setSearchType} defaultValue="multi">
-          <SelectTrigger className="w-[80px]">
+          <SelectTrigger className="w-[80px] md:w-[100px] lg:w-[120px]">
             <SelectValue placeholder="Search type" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="multi">All</SelectItem>
             <SelectItem value="movie">Movies</SelectItem>
             <SelectItem value="tv">TV</SelectItem>
-            <SelectItem value="person">People</SelectItem>
+
+            {/* <SelectItem value="person">People</SelectItem> */}
           </SelectContent>
         </Select>
         <Input
