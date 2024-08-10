@@ -1,7 +1,9 @@
 'use client'
 
 import React from 'react'
-import { Movie, TV, Person, MediaType } from '../lib/tmdb'
+import Image from 'next/image'
+
+import { Movie, TV, Person } from '../lib/tmdb'
 import RenderItem from './render-item'
 
 type RenderGridsProps = {
@@ -56,7 +58,18 @@ export default function RenderGrids({
           {loading && <p>Loading more...</p>}
         </div>
       ) : (
-        <div className="mt-10 text-center text-2xl font-bold">No Data</div>
+        <div className="flex flex-col justify-center items-center h-[80vh]">
+          <div className="text-2xl font-bold">Sorry, there is no data!</div>
+          <div className="w-[90vw] md:w-[800px] md:h-[500px]">
+            <Image
+              src="/no-data.png"
+              alt="No Data"
+              className="w-full h-full object-cove"
+              width={1000}
+              height={1000}
+            />
+          </div>
+        </div>
       )}
     </>
   )
