@@ -37,7 +37,7 @@ export const Header = ({
         </Link>
       )}
 
-      <h1 className="py-2 text-center text-2xl font-bold">{title}</h1>
+      <h1 className="py-2 text-center text-2xl font-bold min-h-12">{title}</h1>
     </div>
   )
 }
