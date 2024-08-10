@@ -25,7 +25,7 @@ export const Header = ({
   }
 
   return (
-    <header className="flex items-center justify-center relative">
+    <div className="flex items-center justify-center relative">
       {from ? (
         <Link href={from} className="absolute left-6">
           <ArrowBackIosIcon />
@@ -38,6 +38,6 @@ export const Header = ({
       )}
 
       <h1 className="py-2 text-center text-2xl font-bold">{title}</h1>
-    </header>
+    </div>
   )
 }

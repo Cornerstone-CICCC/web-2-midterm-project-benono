@@ -5,9 +5,6 @@ import { useState, useRef, useCallback, useEffect } from 'react'
 import RenderGrids from '@/app/components/render-grids'
 import { Movie, TV, Person } from '@/app/lib/tmdb'
 import { MediaType } from '@/app/lib/tmdb/types'
-import { useRouter } from 'next/navigation'
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
-import NextLink from 'next/link'
 import { Header } from '@/app/components/header'
 
 import { searchAction } from '@/app/lib/actions'
@@ -22,7 +19,6 @@ export default function Page({
   const { query } = params
   const { type = MediaType.multi, adult, year } = searchParams
 
-  const router = useRouter()
   const [searchResults, setSearchResults] = useState<{
     results: Movie[] | TV[] | Person[] | (Movie | TV | Person)[]
     totalPages: number
@@ -91,7 +87,7 @@ export default function Page({
   }, [query, type, adult, year])
 
   return (
-    <main>
+    <>
       <Header
         title={decodeURI(query)}
         currentPath={`/search/${query}`}
@@ -103,12 +99,11 @@ export default function Page({
         {searchResults && (
           <RenderGrids
             results={searchResults.results}
-            type={type}
             lastElementRef={lastElementRef}
             loading={loading}
           />
         )}
       </div>
-    </main>
+    </>
   )
 }

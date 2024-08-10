@@ -24,7 +24,7 @@ export default function RenderGrids({
           <React.Fragment key={index}>
             {index === results.length - 1 ? (
               <div
-                className="w-1/4 p-0.5 relative"
+                className="w-1/4 max-w-[200px] p-0.5 relative"
                 ref={index === results.length - 1 ? lastElementRef : null}
               >
                 <RenderItem
@@ -34,7 +34,7 @@ export default function RenderGrids({
                 />
               </div>
             ) : (
-              <div className="w-1/4 p-0.5 relative">
+              <div className="w-1/4 max-w-[200px] p-0.5 relative">
                 <RenderItem
                   item={result}
                   type={result.media_type}

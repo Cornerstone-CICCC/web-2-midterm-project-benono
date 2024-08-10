@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import WhatshotIcon from '@mui/icons-material/Whatshot'
@@ -16,7 +18,7 @@ export const Footer: React.FC = () => {
   ]
 
   return (
-    <footer className="fixed bottom-0 w-full bg-[#1C1C1C] text-[#E1E1E1] pt-2 pb-4">
+    <footer className="md:hidden fixed bottom-0 w-full bg-[#1C1C1C] text-[#E1E1E1] pt-2 pb-4">
       <div className="grid grid-cols-4">
         {links.map((link, index) => (
           <Link

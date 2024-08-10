@@ -18,7 +18,10 @@ export function SearchForm({ handleSubmit }: { handleSubmit: any }) {
   const [searchType, setSearchType] = useState('multi')
 
   return (
-    <form action={formAction} className="w-[90vw] mx-auto">
+    <form
+      action={formAction}
+      className="w-[90vw] md:w-[calc(100vw-256px)] mx-auto"
+    >
       <div className="flex items-center mb-2">
         <Select onValueChange={setSearchType} defaultValue="multi">
           <SelectTrigger className="w-[80px]">
@@ -35,7 +38,7 @@ export function SearchForm({ handleSubmit }: { handleSubmit: any }) {
           type="text"
           name="query"
           placeholder="Enter title or name"
-          className="ml-2 w-[calc(90vw-180px)]"
+          className="ml-2 w-[calc(90vw-180px)] md:w-[400px] lg:w-[600px]"
           icon={<Search />}
         />
         <input type="hidden" name="type" value={searchType} />

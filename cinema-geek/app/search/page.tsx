@@ -30,12 +30,10 @@ export default function Page() {
 
   return (
     <>
-      <Header title="Search" currentPath="/search" />
-      <main>
-        <div className="mx-auto ">
-          <SearchForm handleSubmit={handleSubmit} />
-        </div>
-      </main>
+      <div className="mx-auto md:p-4">
+        <Header title="Search" currentPath="/search" />
+        <SearchForm handleSubmit={handleSubmit} />
+      </div>
     </>
   )
 }
