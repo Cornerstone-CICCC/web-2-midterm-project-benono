@@ -78,7 +78,7 @@ export default function RenderItem({
         const movie = item as Movie
         return (
           <>
-            <Link href={`/movie/${movie.id}`}>
+            <Link href={`/movie/${movie.id}?fromPath=/&fromTitle=Trend`}>
               {renderImage(movie.poster_path, movie.title)}
 
               {isMulti && (
