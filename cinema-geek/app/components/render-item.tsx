@@ -43,7 +43,7 @@ const renderRating = (
 ) => (
   <>
     <div className="flex justify-center md: items-start bg-gray-50 dark:bg-gray-700  gap-3 p-1">
-      <div className="hidden md:flex items-center truncate text-sm md:min-h-12 md:w-24">
+      <div className="hidden md:flex items-center truncate text-sm md:min-h-12 md:w-24 font-display">
         {title}
       </div>
       <div className="flex flex-col items-center">

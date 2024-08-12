@@ -92,7 +92,6 @@ export default function TrendingTabs({
         <TabsList>
           <TabsTrigger value={MediaType.movie}>Movies</TabsTrigger>
           <TabsTrigger value={MediaType.tv}>TV Shows</TabsTrigger>
-          <TabsTrigger value={MediaType.people}>People</TabsTrigger>
         </TabsList>
 
         <TabsContent value={MediaType.movie}>
@@ -111,14 +110,14 @@ export default function TrendingTabs({
             loading={loading}
           />
         </TabsContent>
-        <TabsContent value={MediaType.people}>
+        {/*  <TabsContent value={MediaType.people}>
           <RenderGrids
             results={people}
             lastElementRef={lastElementRef}
             isMulti={false}
             loading={loading}
           />
-        </TabsContent>
+        </TabsContent> */}
       </Tabs>
     </div>
   )
