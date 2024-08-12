@@ -7,16 +7,17 @@ export interface Movie {
   adult: boolean
   vote_average: number
   vote_count: number
+  genre_ids: number[]
   media_type: MediaType
 }
 
-export interface MovieDetail extends Movie {
+export interface MovieDetail extends Omit<Movie, 'genre_ids'> {
   tagline: string
   overview: string
-  genres: Genre[]
   budget: number
   revenue: number
   runtime: number
+  genres: Genre[]
   origin_country: string[]
   production_companies: ProductionCompany[]
   credits: Credits
@@ -60,7 +61,20 @@ export interface TV {
   adult: boolean
   vote_average: number
   vote_count: number
+  genre_ids: number[]
   media_type: MediaType
+}
+
+export interface TVDetail extends Omit<TV, 'genre_ids'> {
+  tagline: string
+  overview: string
+  budget: number
+  revenue: number
+  runtime: number
+  genres: Genre[]
+  origin_country: string[]
+  production_companies: ProductionCompany[]
+  credits: Credits
 }
 
 export interface Person {

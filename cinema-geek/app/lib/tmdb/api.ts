@@ -3,9 +3,10 @@ import {
   FetchTVResponse,
   FetchPeopleResponse,
   SearchPersonResponse,
-  PersonMovieCredits,
   SearchMultiResponse,
   MovieDetail,
+  TVDetail,
+  Genre,
 } from './types'
 
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3'
@@ -125,4 +126,28 @@ export async function fetchMovieById(movieId: string): Promise<MovieDetail> {
     language: 'en-US',
     append_to_response: 'credits',
   })
+}
+
+export async function fetchTVById(tvId: string): Promise<TVDetail> {
+  return fetchTMDB<TVDetail>(`/tv/${tvId}`, {
+    language: 'en-US',
+    append_to_response: 'credits',
+  })
+}
+
+// genres
+// ... 既存のコード ...
+
+export async function fetchMovieGenres(): Promise<Genre[]> {
+  const data = await fetchTMDB<{ genres: Genre[] }>('/genre/movie/list', {
+    language: 'en-US',
+  })
+  return data.genres
+}
+
+export async function fetchTVGenres(): Promise<Genre[]> {
+  const data = await fetchTMDB<{ genres: Genre[] }>('/genre/tv/list', {
+    language: 'en-US',
+  })
+  return data.genres
 }
