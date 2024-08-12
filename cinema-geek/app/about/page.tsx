@@ -11,12 +11,12 @@ export default function Page() {
         <Header title="About" currentPath="/about" />
       </Suspense>
       <main className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-6">About Movie Geek</h1>
+        <h1 className="text-3xl font-bold mb-6">About Cinema Web</h1>
 
         <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">What is Movie Geek?</h2>
+          <h2 className="text-2xl font-semibold mb-4">What is Cinema Web?</h2>
           <p className="mb-4">
-            Movie Geek is your ultimate companion for exploring the world of
+            Cinema Web is your ultimate companion for exploring the world of
             Entertainment. Our app provides a comprehensive database of movies,
             television series, and the people behind them.
           </p>
@@ -47,7 +47,7 @@ export default function Page() {
         <section>
           <h2 className="text-2xl font-semibold mb-4">Data Source</h2>
           <p className="mb-4">
-            Movie Geek uses data from The Movie Database (TMDb). We are grateful
+            Cinema Web uses data from The Movie Database (TMDb). We are grateful
             for their comprehensive API that allows us to bring you up-to-date
             information about the entertainment world.
           </p>
