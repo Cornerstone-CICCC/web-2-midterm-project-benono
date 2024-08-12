@@ -3,25 +3,20 @@ import StarIcon from '@mui/icons-material/Star'
 import PeopleIcon from '@mui/icons-material/People'
 import TheatersIcon from '@mui/icons-material/Theaters'
 import TvIcon from '@mui/icons-material/Tv'
+import HelpCenterIcon from '@mui/icons-material/HelpCenter'
 import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported'
 import Link from 'next/link'
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
-
 import { Movie, TV, Person, MediaType } from '@/app/lib/tmdb'
+import { MovieGenres, TVGenres } from '@/app/lib/tmdb/data'
 import { getImageUrl } from '@/app/lib/tmdb/utils'
 
 interface RenderItemProps {
   item: Movie | TV | Person
   type: MediaType
   isMulti?: boolean
+  currentPath: string
+  currentTitle: string
 }
 
 const renderImage = (path: string | null, alt: string) => (
@@ -41,36 +36,33 @@ const renderImage = (path: string | null, alt: string) => (
   </div>
 )
 
-const renderRating = (vote_average: number, vote_count: number) => (
-  <div className="flex justify-start items-center bg-gray-50 dark:bg-gray-700 gap-3 p-1">
-    <div className="flex flex-col items-center">
-      <StarIcon className="text-accent mr-0.5" />
-      <p className="text-sm text-accent">{vote_average.toFixed(1)}</p>
+const renderRating = (
+  vote_average: number,
+  vote_count: number,
+  title: string
+) => (
+  <>
+    <div className="flex justify-center md: items-start bg-gray-50 dark:bg-gray-700  gap-3 p-1">
+      <div className="hidden md:flex items-center truncate text-sm md:min-h-12 md:w-24">
+        {title}
+      </div>
+      <div className="flex flex-col items-center">
+        <StarIcon className="text-yellow-400 mr-0.5" />
+        <p className="text-sm ">{vote_average.toFixed(1)}</p>
+      </div>
+      <div className="flex flex-col items-center">
+        <PeopleIcon className="text-gray-500 dark:text-gray-300 mr-0.5" />
+        <p className="text-sm">{vote_count}</p>
+      </div>
     </div>
-    <div className="flex flex-col items-center">
-      <PeopleIcon className="text-gray-500 dark:text-gray-300 mr-0.5" />
-      <p className="text-sm">{vote_count}</p>
-    </div>
-  </div>
+  </>
 )
-
-const renderDialog = (item: Movie | TV | Person) => (
-  <Dialog>
-    <DialogTrigger>
-      <div>hoge</div>
-    </DialogTrigger>
-    <DialogContent>
-      <DialogHeader>
-        <DialogTitle>XXX</DialogTitle>
-      </DialogHeader>
-    </DialogContent>
-  </Dialog>
-)
-
 export default function RenderItem({
   item,
   type,
   isMulti = true,
+  currentPath,
+  currentTitle,
 }: RenderItemProps) {
   const renderContent = () => {
     switch (type) {
@@ -78,7 +70,9 @@ export default function RenderItem({
         const movie = item as Movie
         return (
           <>
-            <Link href={`/movie/${movie.id}?fromPath=/&fromTitle=Trend`}>
+            <Link
+              href={`/movie/${movie.id}?fromPath=${currentPath}&fromTitle=${currentTitle}`}
+            >
               {renderImage(movie.poster_path, movie.title)}
 
               {isMulti && (
@@ -86,7 +80,7 @@ export default function RenderItem({
                   <TheatersIcon className="text-white" />
                 </div>
               )}
-              {renderRating(movie.vote_average, movie.vote_count)}
+              {renderRating(movie.vote_average, movie.vote_count, movie.title)}
             </Link>
           </>
         )
@@ -94,7 +88,9 @@ export default function RenderItem({
         const tv = item as TV
         return (
           <>
-            <Link href={`/tv/${tv.id}`}>
+            <Link
+              href={`/tv/${tv.id}?fromPath=${currentPath}&fromTitle=${currentTitle}`}
+            >
               {renderImage(tv.poster_path, tv.name)}
 
               {isMulti && (
@@ -102,7 +98,7 @@ export default function RenderItem({
                   <TvIcon className="text-white" />
                 </div>
               )}
-              {renderRating(tv.vote_average, tv.vote_count)}
+              {renderRating(tv.vote_average, tv.vote_count, tv.name)}
             </Link>
           </>
         )

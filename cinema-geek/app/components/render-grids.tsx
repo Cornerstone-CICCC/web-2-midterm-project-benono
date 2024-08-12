@@ -1,5 +1,6 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
 import React from 'react'
 import Image from 'next/image'
 
@@ -19,6 +20,23 @@ export default function RenderGrids({
   isMulti = true,
   loading,
 }: RenderGridsProps) {
+  const currentPath = usePathname()
+
+  let currentTitle = ''
+  switch (currentPath) {
+    case '/':
+      currentTitle = 'Trend'
+      break
+    case '/search':
+      currentTitle = 'Search'
+      break
+    default:
+      if (currentPath.includes('/search/')) {
+        currentTitle = 'Search'
+      } else {
+        currentTitle = 'Trend'
+      }
+  }
   const renderContent = () => {
     return (
       <div className="flex flex-wrap">
@@ -33,6 +51,8 @@ export default function RenderGrids({
                   item={result}
                   type={result.media_type}
                   isMulti={isMulti}
+                  currentPath={currentPath}
+                  currentTitle={currentTitle}
                 />
               </div>
             ) : (
@@ -41,6 +61,8 @@ export default function RenderGrids({
                   item={result}
                   type={result.media_type}
                   isMulti={isMulti}
+                  currentPath={currentPath}
+                  currentTitle={currentTitle}
                 />
               </div>
             )}
