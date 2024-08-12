@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import WhatshotIcon from '@mui/icons-material/Whatshot'
 import SearchIcon from '@mui/icons-material/Search'
-import SettingsIcon from '@mui/icons-material/Settings'
+import InfoIcon from '@mui/icons-material/Info'
 import { cn } from '@/lib/utils'
 import { ModeToggle } from '@/components/mode-toggle'
 
@@ -14,7 +14,7 @@ export const Footer: React.FC = () => {
   const links = [
     { href: '/', icon: WhatshotIcon, label: 'Trends' },
     { href: '/search', icon: SearchIcon, label: 'Search' },
-    { href: '/settings', icon: SettingsIcon, label: 'Settings' },
+    { href: '/about', icon: InfoIcon, label: 'About' },
   ]
 
   return (

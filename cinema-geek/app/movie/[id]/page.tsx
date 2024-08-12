@@ -27,7 +27,7 @@ export default async function Page({
         fromTitle={searchParams.fromTitle}
       />
       <div className="container mx-auto px-4 py-8">
-        <div className="flex flex-col md:flex-row md:space-x-8">
+        <div className="flex flex-col md:flex-row md:space-x-8 mb-8 md:mb-0">
           {/* Poster */}
           <div className="w-full md:w-1/3 mb-8 md:mb-0">
             <Image
@@ -60,7 +60,7 @@ export default async function Page({
               {movie.genres.map((genre) => (
                 <span
                   key={genre.id}
-                  className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                  className="inline-block bg-primary rounded-full px-3 py-1 text-sm font-semibold text-primary-foreground mr-2 mb-2"
                 >
                   {genre.name}
                 </span>
@@ -68,7 +68,7 @@ export default async function Page({
             </div>
 
             <h2 className="text-xl font-semibold mb-2">Overview</h2>
-            <p className="text-gray-700 mb-6">{movie.overview}</p>
+            <p className="text-foreground mb-6">{movie.overview}</p>
 
             <h2 className="text-xl font-semibold mb-2">Cast</h2>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-1">
