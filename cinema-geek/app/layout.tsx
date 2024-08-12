@@ -24,15 +24,14 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
           <div className="flex min-h-screen">
             <SideMenu />
             <div className="flex flex-grow flex-col md:ml-48 lg:ml-64">
-              <main className="flex-grow-4">{children}</main>
-
+              <main className="flex-grow-4 mb-16 md:mb-0">{children}</main>
               <Footer />
             </div>
           </div>
