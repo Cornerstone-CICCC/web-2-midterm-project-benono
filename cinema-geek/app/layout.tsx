@@ -1,13 +1,25 @@
 import { ThemeProvider } from '@/components/theme-provider'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { Oswald, Roboto } from 'next/font/google'
 import './globals.css'
 
-import { cn } from '@/lib/utils'
 import { SideMenu } from '@/app/components/side-menu'
 import { Footer } from '@/app/components/footer'
 
 const inter = Inter({ subsets: ['latin'] })
+const oswald = Oswald({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-oswald',
+})
+
+const roboto = Roboto({
+  weight: ['400', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-roboto',
+})
 
 export const metadata: Metadata = {
   title: 'Cinema Web',
@@ -22,7 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${oswald.variable} ${roboto.variable}`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
