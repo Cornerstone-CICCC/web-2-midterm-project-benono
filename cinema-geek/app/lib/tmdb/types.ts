@@ -57,7 +57,8 @@ export interface TV {
   name: string
   overview: string
   poster_path: string | null
-  release_date: string
+  first_air_date: string
+  episode_run_time: number[]
   adult: boolean
   vote_average: number
   vote_count: number
